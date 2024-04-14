@@ -45,7 +45,52 @@ func builder2() {
 
 }
 
+func builder3() {
+
+	printPhoneMetadata := func(mps *[]*MobilePhone) {
+		for _, mp := range *mps {
+			fmt.Println("Phone")
+			fmt.Printf("      Manufacturer: %s\n", mp.manufacturer)
+			fmt.Printf("      OS: %s\n", mp.os)
+			fmt.Printf("      Screen: %s\n", mp.screen)
+			fmt.Printf("      Camera: %d\n", mp.camera)
+			fmt.Printf("      Chip: %s\n", mp.chip)
+			fmt.Printf("      Telemetry: %s\n", mp.telemetry)
+			fmt.Printf("      Battery: %d\n", mp.battery)
+			for _, extra := range mp.extras {
+				fmt.Printf("      %s: %s\n", extra["key"], extra["value"])
+			}
+		}
+	}
+
+	// store all phones built
+	phones := make([]*MobilePhone, 0, 4)
+
+	b := NewMobilePhoneBuilder("Apple")
+	director := NewMobilePhoneDirector(b)
+	phone := director.Build("EU")
+	phones = append(phones, phone)
+
+	b = NewMobilePhoneBuilder("Samsung")
+	director.SetBuilder(b)
+	phone = director.Build("EU")
+	phones = append(phones, phone)
+
+	b = NewMobilePhoneBuilder("Apple")
+	director.SetBuilder(b)
+	phone = director.Build("Brazil")
+	phones = append(phones, phone)
+
+	b = NewMobilePhoneBuilder("Samsung")
+	director.SetBuilder(b)
+	phone = director.Build("Korea")
+	phones = append(phones, phone)
+
+	printPhoneMetadata(&phones)
+}
+
 func main() {
 	builder1()
 	builder2()
+	builder3()
 }
