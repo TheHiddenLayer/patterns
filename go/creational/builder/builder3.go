@@ -19,7 +19,7 @@ type mobilePhoneExtras []map[string]string
 type MobilePhone struct {
 	manufacturer, chip, telemetry, os, screen string
 	camera, battery                           int
-	extras                                    []map[string]string
+	extras                                    mobilePhoneExtras
 }
 
 // Concrete Product: iPhone
