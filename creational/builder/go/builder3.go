@@ -13,13 +13,13 @@ type IMobilePhoneBuilder interface {
 	Extras()
 }
 
-type mobilePhoneExtras []map[string]string
+type mobilePhoneExtra map[string]string
 
 // MobilePhone struct
 type MobilePhone struct {
 	manufacturer, chip, telemetry, os, screen string
 	camera, battery                           int
-	extras                                    mobilePhoneExtras
+	extras                                    []mobilePhoneExtra
 }
 
 // Concrete Product: iPhone
@@ -39,7 +39,7 @@ func (i *IPhoneBuilder) Screen()                { i.screen = "Retina Display" }
 func (i *IPhoneBuilder) Camera()                { i.camera = 3 }
 func (i *IPhoneBuilder) Battery()               { i.battery = 10 }
 func (i *IPhoneBuilder) Extras() {
-	i.extras = []map[string]string{
+	i.extras = []mobilePhoneExtra{
 		{"key": "Apple Care", "value": "2 years"},
 		{"key": "Free", "value": "EarPods"},
 	}
@@ -68,7 +68,7 @@ func (g *SamsungGalaxyBuilder) Screen()                { g.screen = "OLED" }
 func (g *SamsungGalaxyBuilder) Camera()                { g.camera = 4 }
 func (g *SamsungGalaxyBuilder) Battery()               { g.battery = 9 }
 func (g *SamsungGalaxyBuilder) Extras() {
-	g.extras = []map[string]string{
+	g.extras = []mobilePhoneExtra{
 		{"key": "Expandable Storage", "value": "10 GB"},
 	}
 }
